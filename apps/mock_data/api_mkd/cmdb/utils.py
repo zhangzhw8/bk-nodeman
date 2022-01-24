@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 TencentBlueKing is pleased to support the open source community by making 蓝鲸智云-节点管理(BlueKing-BK-NODEMAN) available.
-Copyright (C) 2017-2021 THL A29 Limited, a Tencent company. All rights reserved.
+Copyright (C) 2017-2022 THL A29 Limited, a Tencent company. All rights reserved.
 Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://opensource.org/licenses/MIT
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
@@ -22,6 +22,7 @@ class CMDBMockClient(utils.BaseMockClient):
         list_biz_hosts_return=None,
         list_hosts_without_biz_return=None,
         find_host_biz_relations_return=None,
+        find_host_by_service_template_return=None,
     ):
         self.cc = mock.MagicMock()
         self.cc.add_host_to_resource = self.generate_magic_mock(mock_return_obj=add_host_to_resource_return)
@@ -29,3 +30,6 @@ class CMDBMockClient(utils.BaseMockClient):
         self.cc.list_biz_hosts = self.generate_magic_mock(mock_return_obj=list_biz_hosts_return)
         self.cc.list_hosts_without_biz = self.generate_magic_mock(mock_return_obj=list_hosts_without_biz_return)
         self.cc.find_host_biz_relations = self.generate_magic_mock(mock_return_obj=find_host_biz_relations_return)
+        self.cc.find_host_by_service_template = self.generate_magic_mock(
+            mock_return_obj=find_host_by_service_template_return
+        )

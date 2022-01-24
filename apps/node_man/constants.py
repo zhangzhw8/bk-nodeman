@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 TencentBlueKing is pleased to support the open source community by making 蓝鲸智云-节点管理(BlueKing-BK-NODEMAN) available.
-Copyright (C) 2017-2021 THL A29 Limited, a Tencent company. All rights reserved.
+Copyright (C) 2017-2022 THL A29 Limited, a Tencent company. All rights reserved.
 Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://opensource.org/licenses/MIT
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
@@ -108,6 +108,10 @@ class PluginChildDir(Enum):
 PACKAGE_PATH_RE = re.compile(
     "(?P<is_external>external_)?plugins_(?P<os>(linux|windows|aix))_(?P<cpu_arch>(x86_64|x86|powerpc|aarch64))"
 )
+
+# 插件默认
+PLUGIN_DEFAULT_MEM_LIMIT = 10
+PLUGIN_DEFAULT_CPU_LIMIT = 10
 
 ########################################################################################################
 # CHOICES
@@ -780,6 +784,9 @@ class CmdbObjectId:
     MODULE = "module"
     HOST = "host"
     CUSTOM = "custom"
+
+    SERVICE_TEMPLATE = "service_template"
+    SET_TEMPLATE = "set_template"
 
     OBJ_ID_ALIAS_MAP = {BIZ: _("业务"), SET: _("集群"), MODULE: _("模块"), HOST: _("主机"), CUSTOM: _("自定义")}
 

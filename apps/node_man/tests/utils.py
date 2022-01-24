@@ -1076,6 +1076,10 @@ class MockClient(object):
                 raise ComponentCallError
             return []
 
+        @classmethod
+        def list_service_template(cls, *args, **kwargs):
+            return {"count": 1, "info": [{"id": 1}, {"id": 2}]}
+
 
 class MockIAM(object):
     def __init__(self, app_code, secret_key, bk_iam_inner_host, bk_component_api_url):
