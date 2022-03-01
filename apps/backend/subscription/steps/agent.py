@@ -153,12 +153,12 @@ class InstallAgent(AgentAction):
     def _generate_activities(self, agent_manager: AgentManager):
         activities = [
             agent_manager.register_host(),
-            agent_manager.query_tjj_password() if settings.USE_TJJ else None,
-            agent_manager.choose_ap(),
-            agent_manager.install(),
-            agent_manager.get_agent_status(expect_status=constants.ProcStateType.RUNNING),
+            # agent_manager.query_tjj_password() if settings.USE_TJJ else None,
+            # agent_manager.choose_ap(),
+            # agent_manager.install(),
+            # agent_manager.get_agent_status(expect_status=constants.ProcStateType.RUNNING),
+            agent_manager.install_plugins(),
         ]
-        activities = self.append_delegate_activities(agent_manager, activities)
 
         return list(filter(None, activities)), None
 
@@ -174,12 +174,13 @@ class ReinstallAgent(AgentAction):
     def _generate_activities(self, agent_manager: AgentManager):
 
         activities = [
-            agent_manager.query_tjj_password() if settings.USE_TJJ else None,
-            agent_manager.choose_ap(),
-            agent_manager.install(),
+            # agent_manager.query_tjj_password() if settings.USE_TJJ else None,
+            # agent_manager.choose_ap(),
+            # agent_manager.install(),
+            # agent_manager.get_agent_status(expect_status=constants.ProcStateType.RUNNING),
+            agent_manager.install_plugins(),
             agent_manager.get_agent_status(expect_status=constants.ProcStateType.RUNNING),
         ]
-        activities = self.append_delegate_activities(agent_manager, activities)
 
         return list(filter(None, activities)), None
 
@@ -258,7 +259,7 @@ class InstallProxy(AgentAction):
 
         activities = self.append_push_file_activities(agent_manager, activities)
         activities.append(agent_manager.start_nginx())
-        activities = self.append_delegate_activities(agent_manager, activities)
+        activities.append(agent_manager.install_plugins())
 
         return list(filter(None, activities)), None
 
@@ -283,11 +284,10 @@ class ReinstallProxy(AgentAction):
             agent_manager.get_agent_status(expect_status=constants.ProcStateType.RUNNING, name=_("查询Proxy状态")),
         ]
 
-        activities = self.append_delegate_activities(agent_manager, activities)
-
         # 推送文件到proxy
         activities = self.append_push_file_activities(agent_manager, activities)
         activities.append(agent_manager.start_nginx())
+        activities.append(agent_manager.install_plugins())
 
         return list(filter(None, activities)), None
 
