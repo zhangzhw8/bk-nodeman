@@ -32,6 +32,7 @@ from apps.utils.enum import EnhanceEnum
 # 此值为历史遗留，后续蓝鲸不使用此字段后可废弃
 DEFAULT_SUPPLIER_ID = 0
 
+
 ########################################################################################################
 # 任务超时控制
 ########################################################################################################
@@ -46,7 +47,6 @@ class TimeUnit:
 
 # JOB 任务超时时间
 JOB_TIMEOUT = 30 * TimeUnit.MINUTE
-
 
 ########################################################################################################
 # 周期任务周期 run_every，非特殊统一使用秒作为单位的 int 类型，不使用crontab格式
@@ -78,8 +78,17 @@ DEFAULT_AP_ID = int(os.environ.get("DEFAULT_AP_ID", -1))
 # GSE命名空间
 GSE_NAMESPACE = "nodeman"
 
-CC_HOST_FIELDS = ["bk_host_id", "bk_cloud_id", "bk_host_innerip", "bk_host_outerip", "bk_os_type", "bk_os_name"]
-
+CC_HOST_FIELDS = [
+    "bk_host_id",
+    "bk_agent_id",
+    "bk_cloud_id",
+    "bk_host_innerip",
+    "bk_host_outerip",
+    "bk_host_innerip_v6",
+    "bk_host_outerip_v6",
+    "bk_os_type",
+    "bk_os_name",
+]
 
 ########################################################################################################
 # 字符串常量
@@ -789,6 +798,32 @@ class GseOpType(object):
         RESTART: _("重启进程"),
         RELOAD: _("重载进程"),
     }
+
+
+class GseStatusCode(EnhanceEnum):
+    NOT_FOUND = -2
+    QUERY_FAILED = -1
+    INITIAL = 0
+    STARTING = 1
+    RUNNING = 2
+    LOSSY = 3
+    BUSY = 4
+    STOPPED = 5
+    UPGRADING = 6
+
+    @classmethod
+    def _get_member__alias_map(cls) -> Dict[Enum, str]:
+        return {
+            cls.NOT_FOUND: _("未找到"),
+            cls.QUERY_FAILED: _("查询失败"),
+            cls.INITIAL: _("初始状态"),
+            cls.STARTING: _("启动中"),
+            cls.RUNNING: _("运行中"),
+            cls.LOSSY: _("有损状态"),
+            cls.BUSY: _("繁忙状态"),
+            cls.STOPPED: _("已停止"),
+            cls.UPGRADING: _("升级中"),
+        }
 
 
 class CmdbObjectId:
