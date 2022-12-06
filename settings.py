@@ -10,6 +10,9 @@ specific language governing permissions and limitations under the License.
 """
 import os
 
+import pymysql
+
+pymysql.install_as_MySQLdb()
 """
 请不要修改该文件
 如果你需要对settings里的内容做修改，config/default.py 文件中 添加即可
